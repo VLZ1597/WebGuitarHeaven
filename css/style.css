@@ -13,7 +13,7 @@
 
 /* General Styles */
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
     color: var(--color-oscuro); /* Color oscuro para el texto */
     background-color: white; /* Cambiado a blanco */
     margin: 0;
@@ -122,6 +122,22 @@ main h2 {
     gap: 20px;
     flex-wrap: wrap;
     margin-bottom: 3rem;
+}
+
+/* Estilos para la sección "About Me" */
+.ratio {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.ratio iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .aboutme iframe {
