@@ -1,0 +1,122 @@
+@use 'variables';
+@use 'mixins';
+@use 'sass:color';
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: variables.$primary-color;
+
+    .nav-link {
+        color: white;
+
+        &:hover {
+            color: variables.$secondary-color;
+            animation: bounce 0.5s;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+}
+
+.btn {
+    background-color: variables.$primary-color;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s;
+
+    &:hover {
+        background-color: color.adjust(variables.$primary-color, $lightness: -10%);
+        transform: scale(1.05);
+        animation: pulse 0.5s;
+    }
+}
+
+// Animaciones
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes buttonHover {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+.btn:hover {
+    animation: buttonHover 0.3s forwards;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.aboutme {
+    max-width: 75%;
+    margin: auto;
+}
+
+.responsive-iframe {
+    width: 100%;
+    height: 400px;
+}
+
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s;
+    }
+}
+
+footer {
+    padding: 1rem 0;
+    background-color: variables.$primary-color;
+    color: white;
+}
+
+footer p {
+    margin: 0;
+}
