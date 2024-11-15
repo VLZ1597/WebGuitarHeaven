@@ -1,122 +1,174 @@
+// Imports
 @use 'variables';
 @use 'mixins';
 @use 'sass:color';
 
+// Reset & Base Styles
 body {
     background-color: #f9f9f9;
     color: #333;
+    font-family: 'Montserrat', 'Arial', sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.navbar {
-    background-color: variables.$primary-color;
-
-    .nav-link {
-        color: white;
-
-        &:hover {
-            color: variables.$secondary-color;
-            animation: bounce 0.5s;
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-    }
-}
-
-.btn {
-    background-color: variables.$primary-color;
-    color: white;
-    transition: background-color 0.3s ease, transform 0.2s;
-
-    &:hover {
-        background-color: color.adjust(variables.$primary-color, $lightness: -10%);
-        transform: scale(1.05);
-        animation: pulse 0.5s;
-    }
-}
-
-// Animaciones
+// Animations
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+// Utility Classes
 .fade-in {
     animation: fadeIn 0.5s ease-in;
 }
 
-@keyframes buttonHover {
-    from {
-        transform: scale(1);
+// Navigation
+.navbar {
+    background-color: variables.$primary-color;
+    padding: 1rem;
+
+    &-brand {
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        
+        &:hover {
+            color: variables.$secondary-color;
+        }
     }
-    to {
-        transform: scale(1.1);
+
+    &-nav {
+        .nav-link {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+
+            &:hover {
+                color: variables.$secondary-color;
+                animation: bounce 0.5s ease-in-out;
+            }
+
+            &.active {
+                color: variables.$secondary-color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .navbar-nav {
+            margin-top: 1rem;
+            text-align: center;
+        }
     }
 }
 
-.btn:hover {
-    animation: buttonHover 0.3s forwards;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.aboutme {
-    max-width: 75%;
-    margin: auto;
-}
-
-.responsive-iframe {
-    width: 100%;
-    height: 400px;
-}
-
-.card {
-    transition: transform 0.3s, box-shadow 0.3s;
+// Buttons
+.btn {
+    background-color: variables.$primary-color;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
 
     &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.5s;
+        background-color: color.adjust(variables.$primary-color, $lightness: -10%);
+        transform: scale(1.05);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.3);
     }
 }
 
-footer {
-    padding: 1rem 0;
-    background-color: variables.$primary-color;
-    color: white;
+// About Me Section
+.aboutme {
+    padding: 4rem 0;
+
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        max-width: 800px;
+        overflow: hidden;
+        padding: 2rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    &-text {
+        margin-bottom: 2rem;
+        text-align: center;
+
+        h2 {
+            color: variables.$primary-color;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+    }
+
+    &-video {
+        .responsive-iframe {
+            aspect-ratio: 16/9;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 2rem 1rem;
+        
+        .card {
+            margin: 0 1rem;
+        }
+    }
 }
 
-footer p {
-    margin: 0;
+// Footer
+footer {
+    background-color: variables.$primary-color;
+    color: white;
+    margin-top: auto;
+    padding: 1rem 0;
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
 }
